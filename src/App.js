@@ -1,23 +1,41 @@
-import logo from './logo.svg';
+import React, {useState} from 'react'
+
 import './App.css';
 
-function App() {
+const content = [
+    {
+        tab: "Section 1",
+        content: "섹션 1입니다."
+    },
+    {
+        tab: "Section 2",
+        content: "섹션 2입니다."
+    }
+
+]
+
+const useTabs = (initialTab, allTabs) => {
+    const [currentIndex, setCurrentIndex] = useState(initialTab);
+    return {
+        currentItem:allTabs[currentIndex],
+        changeItem: setCurrentIndex
+    }
+};
+
+const App = () => {
+
+    const {currentItem, changeItem} = useTabs(0, content)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello</h1>
+        {content.map((section, index) => (
+                <button key={index} onClick={()=>changeItem(index)}>{section.tab}</button>
+        )
+        )}
+        <div>
+            {currentItem.content}
+        </div>
     </div>
   );
 }
